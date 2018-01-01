@@ -11,8 +11,8 @@ extra-source-files:
 - ChangeLog.md
 
 # Metadata used when publishing your package
-synopsis:            Short description of your package
-# category:            Development
+synopsis:            One handlet knocks of language processing
+category:            Development
 
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
@@ -22,27 +22,13 @@ description:         Please see the README on Github at <https://github.com/sato
 dependencies:
 - base >= 4.7 && < 5
 
-library:
-  source-dirs: src
-
 executables:
-  one-handret-knocks-of-language-processing-exe:
+  one-handret-knocks-of-language-processing:
     main:                Main.hs
-    source-dirs:         app
+    source-dirs:         src
     ghc-options:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - one-handret-knocks-of-language-processing
 
-tests:
-  one-handret-knocks-of-language-processing-test:
-    main:                Spec.hs
-    source-dirs:         test
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    dependencies:
-    - one-handret-knocks-of-language-processing
