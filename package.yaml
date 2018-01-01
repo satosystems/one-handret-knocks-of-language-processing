@@ -1,0 +1,48 @@
+name:                one-handret-knocks-of-language-processing
+version:             0.1.0.0
+github:              "satosystems/one-handret-knocks-of-language-processing"
+license:             BSD3
+author:              "Satoshi Ogata"
+maintainer:          "satosystems@gmail.com"
+copyright:           "2017 Satoshi Ogata"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+synopsis:            Short description of your package
+# category:            Development
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on Github at <https://github.com/satosystems/one-handret-knocks-of-language-processing#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+
+executables:
+  one-handret-knocks-of-language-processing-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - one-handret-knocks-of-language-processing
+
+tests:
+  one-handret-knocks-of-language-processing-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - one-handret-knocks-of-language-processing
