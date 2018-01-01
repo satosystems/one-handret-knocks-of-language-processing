@@ -1,3 +1,5 @@
+import Data.Char (isAlpha)
+
 printSeparator :: IO ()
 printSeparator = putStrLn "--------------------"
 
@@ -6,6 +8,7 @@ main = do
   a00
   a01
   a02
+  a03
 
 -- 00. 文字列の逆順
 -- 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
@@ -28,5 +31,12 @@ a01 = do
 a02 :: IO ()
 a02 = do
   putStrLn . concat $ map (\(a, b) -> a:[b]) $ zip "パトカー" "タクシー"
+  printSeparator
+
+-- 03. 円周率
+-- "Now I need a drink, alcoholic of course, after the heavy lectures involving quantum mechanics."という文を単語に分解し，各単語の（アルファベットの）文字数を先頭から出現順に並べたリストを作成せよ．
+a03 :: IO ()
+a03 = do
+  print $ map (length . filter isAlpha) $ words "Now I need a drink, alcoholic of course, after the heavy lectures involving quantum mechanics."
   printSeparator
 
