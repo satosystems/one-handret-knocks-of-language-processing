@@ -5,6 +5,7 @@ main :: IO ()
 main = do
   a00
   a01
+  a02
 
 -- 00. 文字列の逆順
 -- 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
@@ -21,4 +22,11 @@ a01 = do
   printSeparator
  where
   fn s n r = s !! n:r
+
+-- 02. 「パトカー」＋「タクシー」＝「パタトクカシーー」
+-- 「パトカー」＋「タクシー」の文字を先頭から交互に連結して文字列「パタトクカシーー」を得よ．
+a02 :: IO ()
+a02 = do
+  putStrLn . concat $ map (\(a, b) -> a:[b]) $ zip "パトカー" "タクシー"
+  printSeparator
 
