@@ -3,6 +3,11 @@ import Data.Char (isAlpha)
 printSeparator :: IO ()
 printSeparator = putStrLn "--------------------"
 
+biGram :: [a] -> [[a]] -> [[a]]
+biGram [] rs = reverse rs
+biGram (w1:w2:ws) rs = biGram (w2:ws) ([w1, w2]:rs)
+biGram (_:_) rs = biGram [] rs
+
 main :: IO ()
 main = do
   a00
@@ -10,6 +15,7 @@ main = do
   a02
   a03
   a04
+  a05
 
 -- 00. 文字列の逆順
 -- 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
@@ -52,4 +58,13 @@ a04 = do
   fn ns n (w:ws) rs = fn ns (n + 1) ws ((n, (take len w)):rs)
    where
     len = if n `elem` ns then 1 else 2
+
+-- 05. n-gram
+-- 与えられたシーケンス（文字列やリストなど）からn-gramを作る関数を作成せよ．この関数を用い，"I am an NLPer"という文から単語bi-gram，文字bi-gramを得よ．
+a05 :: IO ()
+a05 = do
+  let text = "I am an NLPer"
+  print $ biGram (words text) []
+  print $ biGram text []
+  printSeparator
 
