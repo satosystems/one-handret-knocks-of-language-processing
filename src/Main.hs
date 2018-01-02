@@ -1,4 +1,9 @@
 import Data.Char (isAlpha)
+import Data.List ( (\\)
+                 , intersect
+                 , union
+                 )
+import Data.List.Unique (sortUniq)
 
 printSeparator :: IO ()
 printSeparator = putStrLn "--------------------"
@@ -16,6 +21,7 @@ main = do
   a03
   a04
   a05
+  a06
 
 -- 00. 文字列の逆順
 -- 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
@@ -66,5 +72,18 @@ a05 = do
   let text = "I am an NLPer"
   print $ biGram (words text) []
   print $ biGram text []
+  printSeparator
+
+-- 06. 集合
+-- "paraparaparadise"と"paragraph"に含まれる文字bi-gramの集合を，それぞれ, XとYとして求め，XとYの和集合，積集合，差集合を求めよ．さらに，'se'というbi-gramがXおよびYに含まれるかどうかを調べよ．
+a06 :: IO ()
+a06 = do
+  let x = biGram "paraparaparadise" []
+      y = biGram "paragraph" []
+  print $ sortUniq $ x `union` y
+  print $ sortUniq $ x `intersect` y
+  print $ sortUniq $ x \\ y
+  putStrLn $ "x includes \"se\": " ++ show ("se" `elem` x)
+  putStrLn $ "y includes \"se\": " ++ show ("se" `elem` y)
   printSeparator
 
