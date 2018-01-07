@@ -34,6 +34,7 @@ main = do
   a08
   a09
   a10
+  a11
 
 -- 00. 文字列の逆順
 -- 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
@@ -156,5 +157,13 @@ a10 :: IO ()
 a10 = do
   contents <- readFile "hightemp.txt"
   print $ length $ lines contents
+  printSeparator
+
+-- 11. タブをスペースに置換
+-- タブ1文字につきスペース1文字に置換せよ．確認にはsedコマンド，trコマンド，もしくはexpandコマンドを用いよ．
+a11 :: IO ()
+a11 = do
+  contents <- readFile "hightemp.txt"
+  putStr $ map (\c -> if c == '\t' then ' ' else c) contents
   printSeparator
 
