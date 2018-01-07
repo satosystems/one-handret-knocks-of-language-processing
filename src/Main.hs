@@ -38,6 +38,7 @@ main = do
   a12
   a13
   a14
+  a15
 
 -- 00. 文字列の逆順
 -- 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
@@ -201,5 +202,13 @@ a14 :: IO ()
 a14 = do
   contents <- readFile "hightemp.txt"
   putStr $ unlines $ take 5 $ lines contents
+  printSeparator
+
+-- 15. 末尾のN行を出力
+-- 自然数Nをコマンドライン引数などの手段で受け取り，入力のうち末尾のN行だけを表示せよ．確認にはtailコマンドを用いよ．
+a15 :: IO ()
+a15 = do
+  contents <- readFile "hightemp.txt"
+  putStr $ unlines $ reverse $ take 5 $ reverse $ lines contents
   printSeparator
 
