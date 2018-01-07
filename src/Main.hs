@@ -36,6 +36,7 @@ main = do
   a10
   a11
   a12
+  a13
 
 -- 00. 文字列の逆順
 -- 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
@@ -181,5 +182,15 @@ a12 = do
   readFile "col1.txt" >>= putStr
   putStrLn "----"
   readFile "col2.txt" >>= putStr
+  printSeparator
+
+-- 13. col1.txtとcol2.txtをマージ
+-- 12で作ったcol1.txtとcol2.txtを結合し，元のファイルの1列目と2列目をタブ区切りで並べたテキストファイルを作成せよ．確認にはpasteコマンドを用いよ．
+a13 :: IO ()
+a13 = do
+  col1 <- readFile "col1.txt"
+  col2 <- readFile "col2.txt"
+  writeFile "col12.txt" $ unlines $ zipWith (\x y -> x ++ "\t" ++ y) (lines col1) (lines col2)
+  readFile "col12.txt" >>= putStr
   printSeparator
 
