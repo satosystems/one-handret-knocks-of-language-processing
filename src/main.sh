@@ -39,3 +39,14 @@ printSeparator
 tail -n 5 hightemp.txt
 printSeparator
 
+# 16. ファイルをN分割する
+# 自然数Nをコマンドライン引数などの手段で受け取り，入力のファイルを行単位でN分割せよ．同様の処理をsplitコマンドで実現せよ．
+split -l 5 hightemp.txt hightemp.splitted.
+for i in hightemp.splitted.a*; do
+  if [ "$i" != "hightemp.splitted.aa" ]; then
+    echo ----
+  fi
+  cat $i
+done
+printSeparator
+

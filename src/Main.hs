@@ -1,3 +1,4 @@
+import Control.Monad (when)
 import Data.Char ( chr
                  , isAlpha
                  , isLower
@@ -39,6 +40,7 @@ main = do
   a13
   a14
   a15
+  a16
 
 -- 00. 文字列の逆順
 -- 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
@@ -211,4 +213,22 @@ a15 = do
   contents <- readFile "hightemp.txt"
   putStr $ unlines $ reverse $ take 5 $ reverse $ lines contents
   printSeparator
+
+-- 16. ファイルをN分割する
+-- 自然数Nをコマンドライン引数などの手段で受け取り，入力のファイルを行単位でN分割せよ．同様の処理をsplitコマンドで実現せよ．
+a16 :: IO ()
+a16 = do
+  contents <- readFile "hightemp.txt"
+  ext <- fn 5 0 $ lines contents
+  mapM_ (\ext -> do
+    (ext /= 0) `when` putStrLn "----"
+    readFile ("hightemp.splitted." ++ show ext) >>= putStr) [0..(pred ext)]
+  printSeparator
+ where
+  fn _ ext [] = return ext
+  fn num ext ss = do
+    let len = length ss
+        n = if len >= num then num else len
+    writeFile ("hightemp.splitted." ++ show ext) (unlines $ take n ss)
+    fn num (succ ext) $ drop n ss
 
