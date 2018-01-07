@@ -35,6 +35,7 @@ main = do
   a09
   a10
   a11
+  a12
 
 -- 00. 文字列の逆順
 -- 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
@@ -165,5 +166,20 @@ a11 :: IO ()
 a11 = do
   contents <- readFile "hightemp.txt"
   putStr $ map (\c -> if c == '\t' then ' ' else c) contents
+  printSeparator
+
+-- 12. 1列目をcol1.txtに，2列目をcol2.txtに保存
+-- 各行の1列目だけを抜き出したものをcol1.txtに，2列目だけを抜き出したものをcol2.txtとしてファイルに保存せよ．確認にはcutコマンドを用いよ．
+a12 :: IO ()
+a12 = do
+  contents <- readFile "hightemp.txt"
+  let lines' = lines contents
+      col1 = map (\line -> (words line) !! 0) lines'
+      col2 = map (\line -> (words line) !! 1) lines'
+  writeFile "col1.txt" $ unlines col1
+  writeFile "col2.txt" $ unlines col2
+  readFile "col1.txt" >>= putStr
+  putStrLn "----"
+  readFile "col2.txt" >>= putStr
   printSeparator
 
