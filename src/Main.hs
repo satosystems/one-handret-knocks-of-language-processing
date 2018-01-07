@@ -33,6 +33,7 @@ main = do
   a07
   a08
   a09
+  a10
 
 -- 00. 文字列の逆順
 -- 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
@@ -148,4 +149,12 @@ a09 = do
           (f, s) = splitAt i a
           rest = f ++ tail s
       shuffle rest $ e:r
+
+-- 10. 行数のカウント
+-- 行数をカウントせよ．確認にはwcコマンドを用いよ．
+a10 :: IO ()
+a10 = do
+  contents <- readFile "hightemp.txt"
+  print $ length $ lines contents
+  printSeparator
 
