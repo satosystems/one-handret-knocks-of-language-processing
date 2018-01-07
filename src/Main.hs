@@ -22,6 +22,7 @@ main = do
   a04
   a05
   a06
+  a07
 
 -- 00. 文字列の逆順
 -- 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
@@ -86,4 +87,13 @@ a06 = do
   putStrLn $ "x includes \"se\": " ++ show ("se" `elem` x)
   putStrLn $ "y includes \"se\": " ++ show ("se" `elem` y)
   printSeparator
+
+-- 07. テンプレートによる文生成
+-- 引数x, y, zを受け取り「x時のyはz」という文字列を返す関数を実装せよ．さらに，x=12, y="気温", z=22.4として，実行結果を確認せよ．
+a07 :: IO ()
+a07 = do
+  putStrLn $ fn 12 "気温" 22.4
+  printSeparator
+ where
+  fn x y z = show x ++ "時の" ++ y ++ "は" ++ show z
 
