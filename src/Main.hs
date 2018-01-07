@@ -41,6 +41,7 @@ main = do
   a14
   a15
   a16
+  a17
 
 -- 00. 文字列の逆順
 -- 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
@@ -231,4 +232,13 @@ a16 = do
         n = if len >= num then num else len
     writeFile ("hightemp.splitted." ++ show ext) (unlines $ take n ss)
     fn num (succ ext) $ drop n ss
+
+-- 17. １列目の文字列の異なり
+-- 1列目の文字列の種類（異なる文字列の集合）を求めよ．確認にはsort, uniqコマンドを用いよ．
+a17 :: IO ()
+a17 = do
+  contents <- readFile "hightemp.txt"
+  let col1 = map (\line -> (words line) !! 0) $ lines contents
+  mapM_ putStrLn $ sortUniq col1
+  printSeparator
 
