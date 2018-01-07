@@ -5,9 +5,13 @@ import Data.Char ( chr
                  )
 import Data.List ( (\\)
                  , intersect
+                 , intersperse
                  , union
                  )
 import Data.List.Unique (sortUniq)
+import System.Random ( getStdRandom
+                     , randomR
+                     )
 
 printSeparator :: IO ()
 printSeparator = putStrLn "--------------------"
@@ -28,6 +32,7 @@ main = do
   a06
   a07
   a08
+  a09
 
 -- 00. 文字列の逆順
 -- 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
@@ -118,4 +123,29 @@ a08 = do
   cipher [] r = reverse r
   cipher (c:cs) r | isLower c = cipher cs $ chr (219 - ord c):r
                   | otherwise = cipher cs $ c:r
+
+-- 09. Typoglycemia
+-- スペースで区切られた単語列に対して，各単語の先頭と末尾の文字は残し，それ以外の文字の順序をランダムに並び替えるプログラムを作成せよ．ただし，長さが４以下の単語は並び替えないこととする．適当な英語の文（例えば"I couldn't believe that I could actually understand what I was reading : the phenomenal power of the human mind ."）を与え，その実行結果を確認せよ．
+a09 :: IO ()
+a09 = do
+  putStrLn =<< fn "I couldn't believe that I could actually understand what I was reading : the phenomenal power of the human mind ."
+  printSeparator
+ where
+  fn s = fn' (words s) []
+  fn' [] r = return $ concat $ intersperse " " $ reverse r
+  fn' (w:ws) r | length w <= 4 = fn' ws $ w:r
+               | otherwise = do
+                 let h = head w
+                     l = last w
+                     body = tail $ init w
+                 shuffled <- shuffle body ""
+                 fn' ws $ (h:shuffled ++ [l]):r
+   where
+    shuffle [] r = return r
+    shuffle a r = do
+      i <- getStdRandom (randomR (0, (length a) - 1))
+      let e = a !! i
+          (f, s) = splitAt i a
+          rest = f ++ tail s
+      shuffle rest $ e:r
 
