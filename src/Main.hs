@@ -1,4 +1,8 @@
-import Data.Char (isAlpha)
+import Data.Char ( chr
+                 , isAlpha
+                 , isLower
+                 , ord
+                 )
 import Data.List ( (\\)
                  , intersect
                  , union
@@ -23,6 +27,7 @@ main = do
   a05
   a06
   a07
+  a08
 
 -- 00. 文字列の逆順
 -- 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
@@ -96,4 +101,21 @@ a07 = do
   printSeparator
  where
   fn x y z = show x ++ "時の" ++ y ++ "は" ++ show z
+
+-- 08. 暗号文
+-- 与えられた文字列の各文字を，以下の仕様で変換する関数cipherを実装せよ．
+--   * 英小文字ならば(219 - 文字コード)の文字に置換
+--   * その他の文字はそのまま出力
+-- この関数を用い，英語のメッセージを暗号化・復号化せよ．
+a08 :: IO ()
+a08 = do
+  let encrypted = cipher "I frame no hypotheses." ""
+      decrypted = cipher encrypted ""
+  putStrLn encrypted
+  putStrLn decrypted
+  printSeparator
+ where
+  cipher [] r = reverse r
+  cipher (c:cs) r | isLower c = cipher cs $ chr (219 - ord c):r
+                  | otherwise = cipher cs $ c:r
 
