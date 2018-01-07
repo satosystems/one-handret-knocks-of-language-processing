@@ -7,6 +7,7 @@ import Data.Char ( chr
 import Data.List ( (\\)
                  , intersect
                  , intersperse
+                 , sort
                  , union
                  )
 import Data.List.Unique (sortUniq)
@@ -42,6 +43,7 @@ main = do
   a15
   a16
   a17
+  a18
 
 -- 00. 文字列の逆順
 -- 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
@@ -240,5 +242,17 @@ a17 = do
   contents <- readFile "hightemp.txt"
   let col1 = map (\line -> (words line) !! 0) $ lines contents
   mapM_ putStrLn $ sortUniq col1
+  printSeparator
+
+-- 18. 各行を3コラム目の数値の降順にソート
+-- 各行を3コラム目の数値の逆順で整列せよ（注意: 各行の内容は変更せずに並び替えよ）．確認にはsortコマンドを用いよ（この問題はコマンドで実行した時の結果と合わなくてもよい）．
+a18 :: IO ()
+a18 = do
+  contents <- readFile "hightemp.txt"
+  let swapped = map (\line -> let cols = words line
+                              in cols !! 2:cols !! 0:cols !! 1:cols !! 3:[]) $ lines contents
+      sorted = sort swapped
+      restored = map (\[a, b, c, d] -> b ++ "\t" ++ c ++ "\t" ++ a ++ "\t" ++ d) sorted
+  mapM_ putStrLn restored
   printSeparator
 
