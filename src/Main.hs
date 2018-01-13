@@ -5,6 +5,7 @@ import Data.Char ( chr
                  , ord
                  )
 import Data.List ( (\\)
+                 , elemIndices
                  , intersect
                  , intersperse
                  , sort
@@ -44,6 +45,7 @@ main = do
   a16
   a17
   a18
+  a19
 
 -- 00. 文字列の逆順
 -- 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
@@ -254,5 +256,19 @@ a18 = do
       sorted = sort swapped
       restored = map (\[a, b, c, d] -> b ++ "\t" ++ c ++ "\t" ++ a ++ "\t" ++ d) sorted
   mapM_ putStrLn restored
+  printSeparator
+
+-- 19. 各行の1コラム目の文字列の出現頻度を求め，出現頻度の高い順に並べる
+-- 各行の1列目の文字列の出現頻度を求め，その高い順に並べて表示せよ．確認にはcut, uniq, sortコマンドを用いよ．
+a19 :: IO ()
+a19 = do
+  contents <- readFile "hightemp.txt"
+  let rows = lines contents
+      rowCount = length rows
+      col1 = map (\line -> (words line) !! 0) $ rows
+      tuples = map (\e -> (rowCount - length (e `elemIndices` col1), e)) col1
+      sorted = sortUniq tuples
+  -- Haskell のソートと sort コマンドでは並び替え結果が異なるがここでは気にしないものとする
+  mapM_ (\(_, s) -> putStrLn s) sorted
   printSeparator
 
